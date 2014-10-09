@@ -1,4 +1,7 @@
+// Frank Petrilli | frank@petril.li
+// This C program prints a husky logo and the words "#bowdown".
 #include <stdio.h>
+#include "blank.h"
 int main()
 {
 	printf("                                      DDD                        88O8           \n");
@@ -46,12 +49,4 @@ int main()
 	printf("|_  __  _| |_) | (_) \\ V  V / (_| | (_) \\ V  V /| | | |\n");
 	printf("  |_||_| |_.__/ \\___/ \\_/\\_/ \\__,_|\\___/ \\_/\\_/ |_| |_|\n");
 	return(0);
-}
-
-int blank(int lines)
-{
-	int i;
-	for (i = 0; i < lines; i++) {
-		printf("\n");
-	}
 }
