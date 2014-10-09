@@ -1,0 +1,47 @@
+#Variables
+phoneip="192.168.1.102"
+uri="106@192.168.1.228"
+command=$1
+number=$2
+
+if [ -z "$1" ] 
+	then
+		echo ""
+		echo "    This script must have at least 1 argument."
+        echo "    Possible commands are: call | hangup | dnd | hold | ring | pickup"
+		echo ""
+elif [ $1 == call ]
+	then
+		grep --ignore-case ${2,,} /etc/phone.cfg > /dev/null
+		if [ $? -eq "1" ] 
+			then
+				ssh frank@frodo.ilinkadv.com curl -s http://$phoneip/command.htm?key=OFFHOOK > /dev/null
+				ssh frank@frodo.ilinkadv.com curl -s http://$phoneip/command.htm?number=$number&outgoing_uri=$uri
+			else
+				directory=`grep ${2,,} /etc/phone.cfg | awk '{print $2}'; &> /dev/null` 
+				name=`grep --ignore-case ${2,,} /etc/phone.cfg | awk '{print $1}'; &> /dev/null`
+				echo "Calling contact $name :: $directory"
+				ssh frank@frodo.ilinkadv.com curl -s http://$phoneip/command.htm?key=OFFHOOK > /dev/null
+           	    ssh frank@frodo.ilinkadv.com curl -s http://$phoneip/command.htm?number=$directory&outgoing_uri=$uri
+		fi
+elif [ $1 == hangup ]
+	then
+		ssh frank@frodo.ilinkadv.com curl -s http://$phoneip/command.htm?key=ONHOOK > /dev/null
+elif [ $1 == hold ]
+	then
+		ssh frank@frodo.ilinkadv.com curl -s http://$phoneip/command.htm?key=F_HOLD > /dev/null
+elif [ $1 == dnd ]
+	then
+		ssh frank@frodo.ilinkadv.com curl -s http://$phoneip/command.htm?key=DND > /dev/null
+elif [ $1 == ring ]
+    then
+        ssh frank@frodo.ilinkadv.com curl -s http://$phoneip/line_login.htm?PLAY_RINGER:5=Play+Ringer > /dev/null
+elif [ $1 == pickup ]
+    then
+        ssh frank@frodo.ilinkadv.com curl -s http://$phoneip/command.htm?key=OFFHOOK > /dev/null
+else
+		echo ""
+		echo "    Unrecognized command"
+		echo "    Possible commands are: call | hangup | dnd | hold | ring | pickup"
+		echo ""
+fi

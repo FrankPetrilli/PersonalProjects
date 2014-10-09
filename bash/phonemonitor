@@ -1,0 +1,1 @@
+dbus-monitor --session "type='signal',interface='org.gnome.ScreenSaver'" | ( while true; do read X; if echo $X | grep "boolean true" &> /dev/null; then phone dnd; elif echo $X | grep "boolean false" &> /dev/null; then phone dnd; fi done )

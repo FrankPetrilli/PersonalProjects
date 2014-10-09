@@ -1,0 +1,1 @@
+sudo vim /etc/shorewall/rules; sudo shorewall check && sudo shorewall restart

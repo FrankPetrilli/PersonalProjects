@@ -1,0 +1,72 @@
+#! /bin/bash
+# Script to automate creating new OpenVPN clients
+# The client cert and key, along with the CA cert is
+# zipped up and placed somewhere to download securely
+#
+# Usage: openvpn-client <common-name>
+ 
+# Set where we're working from
+OPENVPN_RSA_DIR=/srv/openvpn/key
+OPENVPN_KEYS=$OPENVPN_RSA_DIR/keys
+KEY_DOWNLOAD_PATH=/var/www/vpn/
+ 
+# Either read the CN from $1 or prompt for it
+if [ -z "$1" ]
+then echo -n "Enter new client common name (CN): "
+read -e CN
+else
+CN=$1
+fi
+ 
+# Ensure CN isn't blank
+if [ -z "$CN" ]
+then echo "You must provide a CN."
+exit
+fi
+ 
+# Check the CN doesn't already exist
+if [ -f $OPENVPN_KEYS/$CN.crt ]
+then echo "Error: certificate with the CN $CN already exists!"
+echo " $OPENVPN_KEYS/$CN.crt"
+exit
+fi
+ 
+# Enter the easy-rsa directory and establish the default variables
+cd $OPENVPN_RSA_DIR
+source ./vars > /dev/null
+ 
+# Copied from build-key script (to ensure it works!)
+export EASY_RSA="${EASY_RSA:-.}"
+export KEY_CN=$CN
+echo $CN
+"$EASY_RSA/pkitool" --batch $CN
+
+mkdir /srv/openvpn/general/clients/$CN/
+cp -r /srv/openvpn/general/clients/template/* /srv/openvpn/general/clients/$CN/
+chmod -R 777 /srv/openvpn/general/clients/$CN/
+
+mv keys/$CN.crt /srv/openvpn/general/clients/$CN/
+mv keys/$CN.key /srv/openvpn/general/clients/$CN/
+cp keys/ca.crt /srv/openvpn/general/clients/$CN/
+mv keys/$CN.csr keys/CSRs/
+mv keys/*.pem keys/PEMs/
+sed s/clienttemplate/$CN/ /srv/openvpn/general/clients/$CN/client.conf > /srv/openvpn/general/clients/$CN/$CN.conf
+cp /srv/openvpn/general/clients/$CN/$CN.conf /srv/openvpn/general/clients/$CN/client.conf
+rm /srv/openvpn/general/clients/$CN/$CN.conf
+mv /srv/openvpn/general/clients/$CN/$CN.key /srv/openvpn/general/clients/$CN/keys/
+mv /srv/openvpn/general/clients/$CN/$CN.crt /srv/openvpn/general/clients/$CN/keys/
+mv /srv/openvpn/general/clients/$CN/ca.* /srv/openvpn/general/clients/$CN/keys/
+
+ 
+# Take the new cert and place it somewhere it can be downloaded securely
+#zip -q $KEY_DOWNLOAD_PATH/$CN-`date +%d%m%y`.zip keys/$CN.crt keys/$CN.key keys/ca.crt
+cd /srv/openvpn/general/clients/
+zip -r -q $KEY_DOWNLOAD_PATH/$CN-`date +%d%m%y`.zip $CN/
+rsync $KEY_DOWNLOAD_PATH/$CN-`date +%d%m%y`.zip web:/var/www/vpn/
+ 
+# Celebrate!
+echo ""
+echo "#############################################################"
+echo "COMPLETE! Download the new certificate here:"
+echo "http://vpn.petrillifamily.com/$CN-`date +%d%m%y`.zip"
+echo "#############################################################"

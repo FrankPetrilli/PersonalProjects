@@ -1,0 +1,8 @@
+#!/bin/bash
+echo "Revoking $1"
+cp /etc/openvpn/clients/$1/keys/$1.crt /srv/openvpn/key/keys/
+cd /srv/openvpn/key/
+source ./vars
+./revoke-full $1
+mv /etc/openvpn/clients/$1 /srv/openvpn/key/revoked/
+rm /srv/openvpn/key/keys/$1.crt

@@ -1,0 +1,3 @@
+#!/bin/bash
+# Code to cat a config file removing all comments and blank lines.
+grep -vh '^[[:space:]]*\(#\|$\)' "$@"

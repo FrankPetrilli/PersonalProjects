@@ -1,0 +1,8 @@
+#!/bin/bash
+# Free unused memory
+ 
+  
+echo -e "\nMemory usage before purge:\n" && free -m
+sudo sync
+echo 3 | sudo tee /proc/sys/vm/drop_caches
+echo -e "\nMemory usage after purge:\n" && free -m

@@ -1,0 +1,1 @@
+for i in ./*; do echo $i | sed s,./,, | sed s,~,, | base64 --decode > /dev/null && sudo mv $i `echo $i | sed s,./,, | sed s,~,, | base64 --decode`; done;

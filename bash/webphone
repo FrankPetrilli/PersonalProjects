@@ -1,0 +1,40 @@
+#!/bin/bash
+#Variables
+phoneip="192.168.1.102"
+uri="106@192.168.1.228"
+command=$1
+number=$2
+
+if [ -z "$1" ] 
+	then
+		echo ""
+		echo "    This script must have at least 1 argument."
+		echo "    Possible commands are: call | hangup | dnd | hold | ring | pickup"
+		echo ""
+elif [ $1 == call ]
+	then
+		curl -s http://$phoneip/command.htm?key=OFFHOOK > /dev/null
+		curl -s http://$phoneip/command.htm?number=$number&outgoing_uri=$uri
+elif [ $1 == hangup ]
+	then
+		curl -s http://$phoneip/command.htm?key=ONHOOK > /dev/null
+elif [ $1 == ring ]
+	then
+		curl -s http://$phoneip/line_login.htm?PLAY_RINGER:5=Play+Ringer > /dev/null
+elif [ $1 == hold ]
+    then
+        curl -s http://$phoneip/command.htm?key=F_HOLD > /dev/null
+elif [ $1 == dnd ]
+	then
+		curl -s http://$phoneip/command.htm?key=DND > /dev/null
+elif [ $1 == pickup ]
+    then
+    	curl -s http://$phoneip/command.htm?key=OFFHOOK > /dev/null
+
+else
+		echo ""
+		echo "    Unrecognized command"
+		echo "    Possible commands are: call | hangup | dnd | hold | ring | pickup"
+		echo ""
+		echo "    You entered $0 $@"
+fi

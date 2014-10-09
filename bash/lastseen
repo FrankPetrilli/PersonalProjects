@@ -1,0 +1,15 @@
+#!/bin/bash
+
+leasetime='259200'
+
+# Retreive DNSMasq lease time; this is the time the lease exipres. 
+
+for i in `cat /var/lib/misc/dnsmasq.leases | cut -d ' ' -f 1,2,3,4`
+do echo Last
+echo $i
+#unixdate=`echo $i | cut -d ' ' -f 1`
+echo $unixdate
+#date=`date -d @$unixdate +%c`
+#echo $i | sed s/$/$i/
+done
+

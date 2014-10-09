@@ -1,0 +1,10 @@
+#!/bin/bash
+
+arg=$1
+
+if [[ "$1" = "-v" ]]
+then
+	cat /var/lib/misc/dnsmasq.leases
+else
+	cat /var/lib/misc/dnsmasq.leases | awk '{print $2,$3,$4}'
+fi
