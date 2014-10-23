@@ -40,7 +40,7 @@ int main()
 	printf("     +DDDND8OZZOO88DDDDOD8O8OZ8DDOZO$8I~~~:==?+==~~~=~~:~                       \n");
 	printf("     DDDDDOOOZZO8ODDDDDDDDDO8ZOD8Z$ZD8Z==~~=++=~~~:~~=~:~                       \n");
 	printf("     DDDDD8OOO8OOD8DDDDDDD88ZO8D$$$OO887I~=+==+=~~~~~~~~                        \n");
-	printf("     ,,,,,,,,,,,,,,,::::::::::::::::::::::,.,,,,,,,,,,,,			    \n");
+	printf("     ,,,,,,,,,,,,,,,::::::::::::::::::::::,.,,,,,,,,,,,,			\n");
 	blank(3);
 	printf("   _  _   _                      _                     \n");
 	printf(" _| || |_| |                    | |                    \n");
