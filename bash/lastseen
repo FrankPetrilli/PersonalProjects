@@ -1,4 +1,5 @@
 #!/bin/bash
+# Unfinished. Intended to get me the last time a device was seen in my DHCP table.
 
 leasetime='259200'
 

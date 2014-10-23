@@ -1,4 +1,5 @@
 #!/bin/bash
+# Used to more neatly format dnsmasq leases file for reading.
 
 arg=$1
 

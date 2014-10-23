@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# This script will set up the things I like on a new machine.
+
+# Install git from repos
+sudo apt-get install git
+# Set up my git settings for commits
+git config --global user.name "Frank Petrilli"
+git config --global user.email "frank.petril.li"
+# TODO:  Git clone my stuff. (Figure out how to do this securely)
+# Also put things like vimrc into that folder.
+
+# Set up my SSH access.
+mkdir ~/.ssh/
+curl https://frank:flying@frank.petril.li/files/Networking/authorized_keys > ~/.ssh/authorized_keys
+chmod 600 ~/.ssh/authorized_keys
+
+checkinstalled(): {
+	dpkg -l $
