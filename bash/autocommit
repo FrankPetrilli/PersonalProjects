@@ -1,0 +1,20 @@
+#!/bin/bash
+# Find git repos, jump in, git add, commit, push.
+
+IGNORE="UW-CSE-142"
+
+for i in `sudo find / -name .git -type d | sed s,.git$,, | grep -v $IGNORE`
+do cd $i
+pwd
+# test git status output
+if [ -n "$(git status --porcelain)" ]; then
+        git add .
+        git commit -a -m "Automatic commit @ `date`"
+        git push
+else
+  echo "no changes";
+fi
+echo
+done
+cd
+
