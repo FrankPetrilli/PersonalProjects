@@ -1,0 +1,18 @@
+#!/bin/bash
+
+file=$1
+# Find our revision # from git's rev-list functionality.
+rev=`git rev-list -n1 HEAD -- $file`
+if [ $?==0 ]
+then
+	echo
+	echo
+	echo "Recovering $file from revision #$rev"
+	git checkout $rev -- $file
+	lines=`wc -l $file`
+	echo "Line count: $lines"
+	echo
+	stat $file
+else
+	echo "    Could not find a revision with $file"
+fi
