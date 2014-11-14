@@ -1,0 +1,11 @@
+syntax on
+set bg=dark
+" set smartindent
+filetype plugin on
+filetype indent on
+filetype plugin indent on
+set number
+set autoread
+" Map F10 to perform a (top of file)->(indent)->(to bottom of file)
+nmap <F10> gg=G
+set pastetoggle=<F11>
