@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 import math
 def main():
-    for i in range(3, 50000):
+    for i in range(3, 50):
         print ()
 	# Calculate angle via 360/(# sides, with sides coming from for loop)
         angle = (360/i)
