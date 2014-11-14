@@ -6,6 +6,7 @@ filetype indent on
 filetype plugin indent on
 set number
 set autoread
-" Map F10 to perform a (top of file)->(indent)->(to bottom of file)
-nmap <F10> gg=G
+" Map F10 to perform a (set mark z)->(top of file)->(indent)->(to bottom of file)->(return to mark)
+"nmap <F10> gg=G
+nmap <F10> mzgg=G`z
 set pastetoggle=<F11>
