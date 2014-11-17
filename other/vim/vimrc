@@ -11,8 +11,8 @@ set autoread
 nmap <F10> mzgg=G`z
 set pastetoggle=<F11>
 autocmd filetype python nnoremap <F4> :w <bar> exec '!python '.shellescape('%')<CR>
-autocmd filetype c nnoremap <F4> :w <bar> exec '!gcc '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
-autocmd filetype cpp nnoremap <F4> :w <bar> exec '!g++ '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
+autocmd filetype c nnoremap <F4> :w <bar> exec '!gcc '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')'.out'<CR>
+autocmd filetype cpp nnoremap <F4> :w <bar> exec '!g++ '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')'.out'<CR>
 autocmd filetype java nnoremap <F4> :w <bar> exec '!javac '.shellescape('%').' && java '.shellescape('%:r')<CR>
 autocmd filetype java nnoremap <F3> :w <bar> exec '!javac '.shellescape('%'). ' && echo "Compile successful" \|\| echo "Compile failed" '<CR>
 nnoremap <F8> :w <bar> :lcd %:p:h <bar> exec '!git add '.shellescape('%'). '&& git commit && git push'<CR>
