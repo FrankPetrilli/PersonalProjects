@@ -13,7 +13,8 @@ fi
 # Install software from repos
 
 echo "::Installing software..."
-for i in vim iftop git
+sudo apt-get update;
+for i in curl vim iftop git
 	do dpkg -l $i > /dev/null && echo "    $i already installed" || sudo apt-get install -y --force-yes --no-install-recommends $i
 done
 
