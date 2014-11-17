@@ -15,7 +15,7 @@ autocmd filetype c nnoremap <F4> :w <bar> exec '!gcc '.shellescape('%').' -o '.s
 autocmd filetype cpp nnoremap <F4> :w <bar> exec '!g++ '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
 autocmd filetype java nnoremap <F4> :w <bar> exec '!javac '.shellescape('%').' && java '.shellescape('%:r')<CR>
 autocmd filetype java nnoremap <F3> :w <bar> exec '!javac '.shellescape('%'). ' && echo "Compile successful" \|\| echo "Compile failed" '<CR>
-nnoremap <F8> :w <bar> exec '!git add . && git commit -a && git push'<CR>
+nnoremap <F8> :w <bar> :lcd %:p:h <bar> exec '!git add '.shellescape('%'). '&& git commit && git push'<CR>
 try
 	execute pathogen#infect()
 	let g:syntastic_mode_map = { "mode": "passive" }
