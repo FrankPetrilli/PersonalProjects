@@ -27,12 +27,8 @@ class Box
 
 int main(void)
 {
+	// Construct our box.
 	Box box1 (10, 13, 12);
-
-	/*box1.height = 10;
-	box1.width = 13;
-	box1.length = 12;*/
-
-	//cout << "volume" << box1.height * box1.width * box1.length << end1;
+	// Calculate its volume and output to Stdout.
 	cout << "volume of box is: " << box1.volume() << "\n";
 }
