@@ -1,0 +1,19 @@
+#!/bin/bash
+# Find git repos, jump in, git add, commit, push.
+
+IGNORE=""
+
+for i in `sudo find / -name .git -type d | sed s,.git$,,`
+do cd $i
+pwd
+# test git status output
+if [ -n "$(git status --porcelain)" ]; then
+	echo "There are uncommitted changes in $i"
+	# mail instead.
+else
+  echo "no changes in $i";
+fi
+echo
+done
+cd
+
