@@ -1,0 +1,8 @@
+F3 Compiles
+F4 Compiles/runs
+
+F7 Brings up a tagbar
+F8 commits and pushes the current file to git.
+F9 Checks syntax
+F10 Indents
+F11 toggles paste mode
