@@ -31,3 +31,6 @@
 *.x86_64
 *.hex
 
+# Vim stuff
+
+*netrwhist*
