@@ -1,6 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =4
-let g:netrw_dirhist_1='/home/frank/cse142/lecture/week2wednesday'
-let g:netrw_dirhist_2='/home/frank/cse142/lecture/week2wednesday/AsciiArt'
-let g:netrw_dirhist_3='/home/frank/UW-CSE-142/homework/week4'
-let g:netrw_dirhist_4='/home/frank/UW-CSE-142/lecture/week6friday'
