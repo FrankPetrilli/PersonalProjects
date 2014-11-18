@@ -1,24 +1,62 @@
+" Enable syntax highlighting
 syntax on
+" Set dark background for black terminals
 set bg=dark
-" set smartindent
+" Enable filetype-based indenting
 filetype plugin on
 filetype indent on
 filetype plugin indent on
+" Enable line numbers on left
 set number
+" Read a file as it's opened to look for vim options.
 set autoread
-" Map F10 to perform a (set mark z)->(top of file)->(indent)->(to bottom of file)->(return to mark)
-"nmap <F10> gg=G
-nmap <F10> mzgg=G`z
-set pastetoggle=<F11>
-autocmd filetype python nnoremap <F4> :w <bar> exec '!python '.shellescape('%')<CR>
-autocmd filetype c nnoremap <F4> :w <bar> exec '!gcc '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')'.out'<CR>
-autocmd filetype cpp nnoremap <F4> :w <bar> exec '!g++ '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')'.out'<CR>
-autocmd filetype java nnoremap <F4> :w <bar> exec '!javac '.shellescape('%').' && java '.shellescape('%:r')<CR>
-autocmd filetype java nnoremap <F3> :w <bar> exec '!javac '.shellescape('%'). ' && echo "Compile successful" \|\| echo "Compile failed" '<CR>
-nnoremap <F8> :w <bar> :lcd %:p:h <bar> exec '!git add '.shellescape('%'). '&& git commit && git push'<CR>
+
+" Enable mouse support
+set mouse=a
+
+" Enable pathogen, silently fail if it doesn't exist.
 try
 	execute pathogen#infect()
+	" Assuming pathogen is installed, we can enable Syntastic
+	" F9 Checks syntax
 	let g:syntastic_mode_map = { "mode": "passive" }
 	nnoremap <F9> :SyntasticCheck <CR>
 catch
 endtry
+
+" Open NERDTree if I don't specify a file in an arg.
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+" Toggle NERDTree with Control+o
+nmap <C-o> :NERDTreeToggle<CR>
+
+" Close NERDTree if it's the last buffer open.
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+
+" Shortcuts
+
+" F3 Compiles
+autocmd filetype java nnoremap <F3> :w <bar> exec '!javac '.shellescape('%'). ' && echo "Compile successful" \|\| echo "Compile failed" '<CR>
+
+" F4 Compiles/runs
+autocmd filetype python nnoremap <F4> :w <bar> exec '!python '.shellescape('%')<CR>
+autocmd filetype c nnoremap <F4> :w <bar> exec '!gcc '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')'.out'<CR>
+autocmd filetype cpp nnoremap <F4> :w <bar> exec '!g++ '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')'.out'<CR>
+autocmd filetype java nnoremap <F4> :w <bar> exec '!javac '.shellescape('%').' && java '.shellescape('%:r')<CR>
+
+" F7 Brings up a tagbar
+nmap <F7> :TagbarToggle<CR>
+
+" F8 commits and pushes the current file to git.
+noremap <F8> :w <bar> :lcd %:p:h <bar> exec '!git add '.shellescape('%'). '&& git commit && git push'<CR>
+
+" F10 Indents
+nmap <F10> mzgg=G`z
+
+" F11 toggles paste mode
+set pastetoggle=<F11>
+
+
+
