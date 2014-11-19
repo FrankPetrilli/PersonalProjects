@@ -8,7 +8,7 @@ int main(void)
 		fprintf(stdout, "%s\n", cwd);
 		return 0;
 	} else {
-		fprintf(stderr, "getcwd failed.");
+		fprintf(stderr, "getcwd failed\n");
 		return 1;
 	}
 }
