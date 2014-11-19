@@ -1,3 +1,4 @@
+#!/bin/bash
 #Variables
 phoneip="192.168.1.102"
 uri="106@192.168.1.228"
