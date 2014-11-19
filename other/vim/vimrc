@@ -42,8 +42,8 @@ autocmd filetype java nnoremap <F3> :w <bar> exec '!javac '.shellescape('%'). ' 
 
 " F4 Compiles/runs
 autocmd filetype python nnoremap <F4> :w <bar> exec '!python '.shellescape('%')<CR>
-autocmd filetype c nnoremap <F4> :w <bar> exec '!gcc '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')'.out'<CR>
-autocmd filetype cpp nnoremap <F4> :w <bar> exec '!g++ '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')'.out'<CR>
+autocmd filetype c nnoremap <F4> :w <bar> exec '!gcc '.shellescape('%').' -o '.shellescape('%:r').'.out && ./'.shellescape('%:r').'.out'<CR>
+autocmd filetype cpp nnoremap <F4> :w <bar> exec '!g++ '.shellescape('%').' -o '.shellescape('%:r').'.out && ./'.shellescape('%:r').'.out'<CR>
 autocmd filetype java nnoremap <F4> :w <bar> exec '!javac '.shellescape('%').' && java '.shellescape('%:r')<CR>
 
 " F7 Brings up a tagbar
