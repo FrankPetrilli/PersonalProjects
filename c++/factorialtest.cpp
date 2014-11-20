@@ -1,12 +1,15 @@
 #include <ctime>
-//get the system time (unix)
 #include <iostream>
+
 using namespace std;
 
-const int ITERATIONS = 00000000;
+// Constants for program control.
+// How many times should we calculate the value?
+const int ITERATIONS = 5000000000;
+// This factorial is what we'll calculate.
 const int CALCULATE = 10;
 
-// Blueprints
+// Blueprints for functions used in main.
 
 long printTime(void);
 long factorial1(int n);
@@ -14,13 +17,14 @@ long factorial2(int n);
 
 int main(void)
 {
-	cout << "For loop";
+	cout << "For loop:";
 	printTime();
 	int i = 1;
 	for (i = 1; i <= ITERATIONS; i++) 
 	{
 		factorial1(CALCULATE);
 	}
+	// Print the answer it gets to make sure it's a valid value.
 	long answer1 = factorial1(CALCULATE);
 	cout << "\n" << answer1 << "\n";
 	printTime();
@@ -39,12 +43,14 @@ int main(void)
 
 long printTime(void)
 {
+	// Gets the time in unix epoch, then prints to stdout.
 	long sysTime = time(0);
 	cout << "\n" << sysTime <<"\n\n";
 }
 
 long factorial1(int n)
 {
+	// Our poor algorithm for factorial calculation.
 	double total = 1;
 	for (int i = 1; i <= n; i++) 
 	{
@@ -55,6 +61,7 @@ long factorial1(int n)
 
 long factorial2(int n)
 {
+	// A much better way of doing it.
 	if (n == 1)
 	{
 		return 1;
