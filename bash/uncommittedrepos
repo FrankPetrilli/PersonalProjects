@@ -9,7 +9,15 @@ pwd
 # test git status output
 if [ -n "$(git status --porcelain)" ]; then
 	echo "There are uncommitted changes in $i"
+	name=
+	email=`git log | grep Author | cut -d "<" -f 2 | cut -d ">" -f 1`
+	reponame=`basename $(git rev-parse --show-toplevel)`
 	# mail instead.
+	echo -e "Hello `hostname -f` user,\n\nThere are uncommitted changes in repo $reponame on `hostname -f`, and you're the last user to make a commit."
+	echo "Here are your changes:"
+	echo -e "\n\n`git status -s`" 
+	echo
+	echo
 else
   echo "no changes in $i";
 fi
