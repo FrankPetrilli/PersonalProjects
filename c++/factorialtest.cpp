@@ -51,7 +51,7 @@ long printTime(void)
 long factorial1(int n)
 {
 	// Our poor algorithm for factorial calculation.
-	double total = 1;
+	long total = 1;
 	for (int i = 1; i <= n; i++) 
 	{
 		total = total * i;
