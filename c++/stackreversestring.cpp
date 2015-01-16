@@ -29,5 +29,5 @@ int main(int argc, char** argv)
 		s.pop();
 	}
 
-	
+	return 0;
 }
