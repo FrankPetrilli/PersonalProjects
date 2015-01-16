@@ -1,0 +1,56 @@
+#!/bin/bash
+
+# Within CloudStack, locates an instance's volumes, then does a snapshot on them.
+
+cloudmonkey set display json
+input=$1
+
+returnvar=''
+findIdByVmName () {
+	name=$1
+	id=$(cloudmonkey list virtualmachines listall=true keyword=$name filter=id | head -n5 | tail -n1 | awk '{print $2}' | sed s/\"//g)
+	returnvar=$id;
+	#return $id;
+}
+
+findVolumesByVmId () {
+	id=$1
+	volumes=$(cloudmonkey list volumes listall=true filter=id virtualmachineid=$id | grep "\"id\":\ \"........-....-....-....-............\"" | grep -v ^$ | sed s/......"\"id\":\ \"/"/ | tr -d '\"')
+	returnvar=$volumes;
+	#return $volumes;
+}
+
+vmcount=$(cloudmonkey list virtualmachines listall=true keyword=$input filter=id | head -n2 | tail -n1 | cut -d : -f 2 | cut -d , -f 1 | sed s/^\ // | sed s/$\ //)
+
+if [[ $vmcount > 1 ]]
+then
+	echo "Too many VMs for your query string. Try again."
+	echo $vmcount VMs found.
+	echo VMs are displayed below:
+	cloudmonkey set display table
+	cloudmonkey list virtualmachines listall=true keyword=$input filter=name,id
+	cloudmonkey set display json
+	red='\033[0;31m'
+	tab='\t\t'
+	echo -e "${tab}${red}=====::::====="
+	echo -e "${tab}${red}     FAIL      "
+	echo -e "${tab}${red}=====::::====="
+	echo
+	tput sgr0
+	exit;
+elif [[ $vmcount < 1 ]]
+then
+	echo "No VMs found."
+	exit;
+else
+	findIdByVmName $input
+	findVolumesByVmId $returnvar;
+	for volumeId in $returnvar
+	do
+		echo $volumeId
+		cloudmonkey set display table
+		cloudmonkey list volumes filter=id,name id=$volumeId
+		echo rbd -p cloudstack snap create $volumeId@$(date "+%m-%d-%y.%H:%M")
+		cloudmonkey set display json
+	done
+fi
