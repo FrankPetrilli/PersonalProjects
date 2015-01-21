@@ -17,5 +17,6 @@ public class StackReverseString {
 		while (!s.isEmpty()) {
 			System.out.print(s.pop());
 		}
+		System.out.println();
 	}
 }
