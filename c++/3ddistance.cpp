@@ -15,12 +15,9 @@ using namespace std;
 class Point
 {
         private:
+		double x, y, z;
 
         public:
-                double x;
-                double y;
-                double z;
-
                 Point(int x, int y, int z)
                 {
                         this->x = x;
