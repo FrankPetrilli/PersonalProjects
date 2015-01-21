@@ -28,6 +28,6 @@ int main(int argc, char** argv)
 		cout << s.top();
 		s.pop();
 	}
-
+	cout << "\n";
 	return 0;
 }
