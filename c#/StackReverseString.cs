@@ -9,13 +9,13 @@ using System.Collections;
 
 public class StackReverseString
 {
-	public static void Main(string[] args)
+	public static void Main (string[] args)
 	{
-		Stack s = new Stack();
+		Stack s = new Stack ();
 		string input;
-		if (args.GetLength(0) < 1) 
+		if (args.GetLength (0) < 1) 
 		{
-		       	Console.Write("Enter a string: ");
+		       	Console.Write ("Enter a string: ");
 			input = Console.ReadLine();
 		} 
 		else 
@@ -24,19 +24,19 @@ public class StackReverseString
 		}
 		for (int i = 0; i < input.Length; i++)
 		{
-			s.Push(input[i]);
+			s.Push (input[i]);
 		}
 
 		while (s.Count != 0)
 		{
-			Console.Write(s.Pop());
+			Console.Write (s.Pop());
 		}
 
 		Console.WriteLine();
 
-		if (args.GetLength(0) < 1) 
+		if (args.GetLength (0) < 1) 
 		{
-			Console.ReadLine();
+			Console.ReadLine ();
 		}
 	}
 }
