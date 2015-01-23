@@ -25,8 +25,9 @@ catch
 endtry
 
 " Open NERDTree if I don't specify a file in an arg.
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" Disabled for now.
+"autocmd StdinReadPre * let s:std_in=1
+"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 " Toggle NERDTree with Control+o
 nmap <C-o> :NERDTreeToggle<CR>
@@ -38,7 +39,10 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 " Shortcuts
 
 " F3 Compiles
+autocmd filetype c nnoremap <F3> :w <bar> exec '!gcc '.shellescape('%'). ' && echo "Compile successful" \|\| echo "Compile failed" '<CR>
+autocmd filetype cpp nnoremap <F3> :w <bar> exec '!g++ '.shellescape('%'). ' && echo "Compile successful" \|\| echo "Compile failed" '<CR>
 autocmd filetype java nnoremap <F3> :w <bar> exec '!javac '.shellescape('%'). ' && echo "Compile successful" \|\| echo "Compile failed" '<CR>
+autocmd filetype cs nnoremap <F3> :w <bar> exec '!mcs '.shellescape('%'). ' && echo "Compile successful" \|\| echo "Compile failed" '<CR>
 
 " F4 Compiles/runs
 autocmd filetype python nnoremap <F4> :w <bar> exec '!python '.shellescape('%')<CR>
