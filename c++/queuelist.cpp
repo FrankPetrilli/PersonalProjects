@@ -7,7 +7,7 @@ int main(int argc, char** argv)
 {
 	queue<int> q;
 	int input;
-	cout << "Enter an integer. 0 will end: \n";
+	cout << "Enter an integer per line. 0 will end: \n";
 
 	do {
 		cin >> input;
