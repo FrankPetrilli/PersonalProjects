@@ -1,6 +1,8 @@
 #!/bin/bash
 
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+
 rm ~/.vimrc
-ln -s vimrc ~/.vimrc
+ln -s $DIR/vimrc ~/.vimrc
 rm -r ~/.vim
-ln -s vim ~/.vim
+ln -s $DIR/vim ~/.vim
