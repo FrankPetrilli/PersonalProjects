@@ -18,7 +18,7 @@ class Point
 		double x, y, z;
 
         public:
-                Point(int x, int y, int z)
+                Point(double x, double y, double z)
                 {
                         this->x = x;
                         this->y = y;
