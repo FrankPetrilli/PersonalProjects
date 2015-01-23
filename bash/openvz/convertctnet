@@ -1,0 +1,33 @@
+#!/bin/bash
+# Converts a container from magic to bridged networking
+PREFIX="10.25.2."
+user=`whoami`
+if [[ $user != 'root' ]]
+then
+echo "You must be root to run this."
+exit 1
+fi
+
+last=`vzlist -a | tail -n 1 | awk '{print $1}';`
+
+if [[ -z $1 ]]
+then
+        read -p "Container ID: " -i $last -e id
+else
+        id=$1
+fi
+
+vzctl stop $id
+vzctl set $id --ipdel all --save
+vzctl set $id --netif_add eth0 --save
+vzctl mount $id
+
+rm /var/lib/vz/private/$id/etc/network/interfaces
+echo "auto lo" >> /var/lib/vz/private/$id/etc/network/interfaces
+echo "iface lo inet loopback" >> /var/lib/vz/private/$id/etc/network/interfaces
+echo "auto eth0" >> /var/lib/vz/private/$id/etc/network/interfaces
+echo "iface eth0 inet static" >> /var/lib/vz/private/$id/etc/network/interfaces
+echo "  address ${PREFIX}${id}" >> /var/lib/vz/private/$id/etc/network/interfaces
+echo "  netmask 255.255.0.0" >> /var/lib/vz/private/$id/etc/network/interfaces
+echo "  gateway ${PREFIX}1" >> /var/lib/vz/private/$id/etc/network/interfaces
+vzctl start $id
