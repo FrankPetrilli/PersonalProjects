@@ -12,8 +12,13 @@ public class StackReverseString
 	public static void Main(string[] args)
 	{
 		Stack s = new Stack();
-		Console.Write("Enter a string: ");
-		string input = Console.ReadLine();
+		string input;
+		if (args.GetLength(0) < 1) {
+		       	Console.Write("Enter a string: ");
+			input = Console.ReadLine();
+		} else {
+			input = args[0];
+		}
 		for (int i = 0; i < input.Length; i++)
 		{
 			s.Push(input[i]);
@@ -23,7 +28,12 @@ public class StackReverseString
 		{
 			Console.Write(s.Pop());
 		}
+
 		Console.WriteLine();
+
+		if (args.GetLength(0) < 1) {
+			Console.ReadLine();
+		}
 	}
 }
 
