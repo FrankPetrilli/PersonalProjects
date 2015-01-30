@@ -34,3 +34,5 @@
 # Vim stuff
 
 other/vim/vim/.netrwhist
+*.swp
+*.swo
