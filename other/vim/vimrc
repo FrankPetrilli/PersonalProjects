@@ -12,7 +12,8 @@ set number
 set autoread
 
 " Enable mouse support
-set mouse=a
+"set mouse=a
+set mouse=i " Enables only in insert mode.
 
 " Enable pathogen, silently fail if it doesn't exist.
 try
