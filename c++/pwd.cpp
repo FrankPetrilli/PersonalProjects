@@ -1,3 +1,9 @@
+/*
+ * Frank Petrilli | frank@petril.li | frank.petril.li
+ * Language: C++
+ * Calling the libc.getcwd() function from C++.
+ */
+
 #include <unistd.h>
 #include <stdio.h>
 

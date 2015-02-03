@@ -1,3 +1,9 @@
+/*
+ * Frank Petrilli | frank@petril.li | frank.petril.li
+ * Language: C++
+ * Using a for loop to show efficiency in code. Prompts for ten numbers, then sums them.
+ */
+
 #include <iostream>
 #include <sstream>
 #include <string>

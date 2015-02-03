@@ -1,8 +1,8 @@
 /*
- * Frank Petrilli | frank@petril.li | http://frank.petril.li/
+ * Frank Petrilli | frank@petril.li | frank.petril.li
  * Language: C++
  * String reverser using a stack.
-*/
+ */
 
 #include <stdio.h>
 #include <iostream>

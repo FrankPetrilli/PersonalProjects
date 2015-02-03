@@ -1,3 +1,9 @@
+/*
+ * Frank Petrilli | frank@petril.li | frank.petril.li
+ * Language: C++
+ * C++ Queue implementation. Put values onto the queue, remove them when done.
+ */
+
 #include <iostream>
 #include <queue>
 

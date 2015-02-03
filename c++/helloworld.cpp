@@ -1,8 +1,8 @@
 /*
  * Frank Petrilli | frank@petril.li | frank.petril.li
+ * Language: C++
  * Hello world objective in C++. Completely unnecessary, but why not?
- * 11/25/2014
-*/
+ */
 
 #include <iostream>
 #include <sstream>

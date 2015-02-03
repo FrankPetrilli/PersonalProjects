@@ -1,3 +1,8 @@
+/*
+ * Frank Petrilli | frank@petril.li | frank.petril.li
+ * Language: C++
+ * Provides basic physics functions in an efficient calculator.
+ */
 #include <iostream>
 #include <sstream>
 #include <string>

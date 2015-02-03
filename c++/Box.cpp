@@ -1,8 +1,8 @@
 /*
- * Frank Petrilli | frank@petril.li | http://frank.petril.li/
+ * Frank Petrilli | frank@petril.li | frank.petril.li
  * Language: C++
  * "Box" object and method for calculating volume.
-*/
+ */
 
 #include <iostream>
 #include <sstream>

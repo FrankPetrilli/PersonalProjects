@@ -1,8 +1,8 @@
 /*
- * Frank Petrilli | frank@petril.li | http://frank.petril.li/
+ * Frank Petrilli | frank@petril.li | frank.petril.li
  * Language: C++
  * Object-oriented 3D distance calculator
-*/
+ */
 
 #include <iostream>
 #include <sstream>

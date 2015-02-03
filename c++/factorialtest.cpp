@@ -1,3 +1,9 @@
+/*
+ * Frank Petrilli | frank@petril.li | frank.petril.li
+ * Language: C++
+ * Testing different versions of factorial functions to determine their efficiency.
+ */
+
 #include <ctime>
 #include <iostream>
 
