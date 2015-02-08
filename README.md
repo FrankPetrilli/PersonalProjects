@@ -1,6 +1,6 @@
 Frank Petrilli's Personal Projects
 ================
-Frank Petrilli | frank@petril.li | [frank.petril.li] (https://frank.petril.li) <br>
+Frank Petrilli | [frank.petril.li] (https://frank.petril.li) <br>
 This repository is where I'll be storing most of my personal projects which don't necessitate a repo of their own.<br>
 For the most part, each folder within represents a language. Otherwise, they're grouped by task or challenge.<br>
 
