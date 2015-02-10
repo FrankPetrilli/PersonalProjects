@@ -69,3 +69,5 @@ set pastetoggle=<F11>
 
 " Set modeline reading
 set modeline
+" Must not exceed 100 characters in UW CSE homework.
+autocmd BufRead,BufNewFile *UW*/homework/* set cc=100 
