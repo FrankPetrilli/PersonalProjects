@@ -19,6 +19,9 @@ public class MathParsing {
 		}
 	}
 /* ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
+// Math parsing code from: http://stackoverflow.com/a/26227947
+// Thank you to Boann.
+
 	public static double eval(final String str) {
 		class Parser {
 			int pos = -1, c;
