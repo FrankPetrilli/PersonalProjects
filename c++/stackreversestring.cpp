@@ -17,8 +17,15 @@ int main(int argc, char** argv)
 
 	string input;
 
-	cout << "Enter a word: ";
-	getline(cin,input);
+	if (argc == 2)
+	{
+		input = argv[1];
+	}
+	else
+	{
+		cout << "Enter a word: ";
+		getline(cin,input);
+	}
 
 	for (int i = 0; i < input.size(); i++) {
 		s.push(input.at(i));
