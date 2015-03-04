@@ -1,0 +1,13 @@
+if [[ -z $1 ]]
+then
+        read -p "Container ID: " -i "100" -e CTID
+else
+        CTID=$1
+fi
+
+vzctl set $CTID --devnodes net/tun:rw --save
+vzctl set $CTID --devices c:10:200:rw --save
+vzctl set $CTID --capability net_admin:on --save
+vzctl exec $CTID mkdir -p /dev/net
+vzctl exec $CTID mknod /dev/net/tun c 10 200
+vzctl exec $CTID chmod 600 /dev/net/tun

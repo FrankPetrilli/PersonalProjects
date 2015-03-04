@@ -1,0 +1,115 @@
+#!/bin/bash
+# Check for root, this command requires it.
+user=`whoami`
+if [[ $user != 'root' ]]
+then
+echo "You must be root to run this."
+exit 1
+fi
+
+# Set CT ID by incrementing last CT by 1
+
+last=`vzlist -a | tail -n 1 | awk '{print $1}';`
+new=$(($last + 1))
+if [[ $new < 100 ]]
+then
+	new=100
+fi
+
+echo "Creating CT #$new"
+echo ""
+
+
+
+# Set variables by prompting for them with assumed values if there are no command line parameters, but use the command line parameters if they exist.
+if [[ -z $1 ]] 
+then
+	read -p "Hostname: " -i ubuntu$new -e hostname
+else
+	hostname=$1
+fi
+if [[ -z $2 ]] 
+then
+	read -p "RAM : " -i 32M -e ram
+else
+	ram=$2
+fi
+if [[ -z $3 ]] 
+then
+	read -p "Disk: " -i 1G -e disk
+else
+	disk=$3
+fi
+if [[ -z $4 ]]
+then
+	echo ""
+else
+	new=$4
+fi
+
+
+# Check if we're in automated mode sans prompts by checking for number of arguments. If greater than 1, we're automated mode, and we don't need to prompt for OS, just assume primary template. 
+if [[ $# > 1 ]]
+	then
+		ostemplate="ubuntu-12.04-petrilliv2_i386"
+	else
+# Make sure we won't go into other menu
+other=0
+# Present a menu of the listed items. Set $ostemplate to variable
+# In the case of Other, we'll set $other to 1
+echo "Select a template:"
+options=("Ubuntu 12.04" "Ubuntu 12.04 VDI" "Other")
+select opt in "${options[@]}"
+do
+	case $opt in
+		"Ubuntu 12.04")
+			echo "Ubuntu 12.04"
+			ostemplate="ubuntu-12.04-petrilliv2_i386"
+			;;
+		"Ubuntu 12.04 VDI")
+			echo "Ubuntu 12.04 VDI"
+			ostemplate="ubuntu-12.04-i386-VDIMarkII"
+			;;
+		"Other")
+			other=1
+			;;
+		*) echo "Invalid Option";;
+	esac
+	break
+done
+
+# If $other is set to 1 by the last menu, go here
+if [[ $other -eq 1 ]]
+	then
+		echo "Other..."
+		cd /var/lib/vz/template/cache/
+		# Iterate everything in the folder as an option
+		select opt2 in *
+		do
+			echo "$opt2 Selected"
+			ostemplatetargz=$opt2
+			# Trim .tar.gz off the end
+			ostemplate=`echo $ostemplatetargz | sed s/.tar.gz//g`
+			break
+		done
+	else
+		echo ""
+fi
+fi
+
+# Spawn CT config by specifying disk inodes and ram. This is required to fix a bug. Dump the error to /dev/null
+vzctl set $new --diskinodes 90000:91000 --ram $ram --save 2>/dev/null
+# Use the CT config to dump the template into, set the diskspace, add the ip address and set the hostname
+vzctl create $new --ostemplate $ostemplate --diskspace $disk --ipadd 10.25.2.$new --hostname $hostname
+# Set some other variables that weren't set before
+vzctl set $new --ram $ram --swappages 0 --nameserver 10.25.0.1 --save
+# Make it start on startup of host
+vzctl set $new --onboot yes --save
+# Start the new CT
+vzctl start $new
+# Now that it's running, set the password for root to ubuntu. (
+vzctl set $new --userpasswd root:ubuntu
+echo "MAKE SURE TO CHANGE THIS PASSWORD"
+# Left in in case. I use this to run commands on bulk CT creation.
+
+#ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@10.25.2.$new vnc4server
