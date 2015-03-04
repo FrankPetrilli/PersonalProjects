@@ -25,5 +25,16 @@ public class Point
 
 		return Math.Pow(diffx + diffy + diffz, .5);
 	}
+
+	public double DistanceFromOrigin()
+	{
+		Point origin = new Point(0, 0, 0);
+		return this.DistanceFrom(origin);
+	}
+
+	public override string ToString()
+	{
+		return x + ", " + y + ", " + z;
+	}
 }
 
