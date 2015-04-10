@@ -74,4 +74,5 @@ autocmd BufRead,BufNewFile *UW*/homework/* set cc=100
 
 " Setting soft tabs for HTML editing
 autocmd filetype html set expandtab tabstop=4 shiftwidth=4
+" Add line-broken curly braces with F12 in insert mode.
 inoremap <F12> {<CR>}<ESC>O
