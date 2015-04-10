@@ -44,14 +44,14 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 "autocmd filetype cpp nnoremap <F3> :w <bar> exec '!g++ '.shellescape('%'). ' && echo "Compile successful" \|\| echo "Compile failed" '<CR>
 
 autocmd filetype c nnoremap <F3> :w <bar> exec '!gcc '.shellescape('%'). ' -o '.shellescape('%:r').'.out && echo "Compile successful" \|\| echo "Compile failed" '<CR>
-autocmd filetype cpp nnoremap <F3> :w <bar> exec '!g++ '.shellescape('%'). ' -o '.shellescape('%:r').'.out && echo "Compile successful" \|\| echo "Compile failed" '<CR>
+autocmd filetype cpp nnoremap <F3> :w <bar> exec '!g++ '.shellescape('%'). ' -o '.shellescape('%:r').'.out -pthread -std=c++11 && echo "Compile successful" \|\| echo "Compile failed" '<CR>
 autocmd filetype java nnoremap <F3> :w <bar> exec '!javac '.shellescape('%'). ' && echo "Compile successful" \|\| echo "Compile failed" '<CR>
 autocmd filetype cs nnoremap <F3> :w <bar> exec '!mcs '.shellescape('%'). ' && echo "Compile successful" \|\| echo "Compile failed" '<CR>
 
 " F4 Compiles/runs
 autocmd filetype python nnoremap <F4> :w <bar> exec '!python '.shellescape('%')<CR>
 autocmd filetype c nnoremap <F4> :w <bar> exec '!gcc '.shellescape('%').' -o '.shellescape('%:r').'.out && ./'.shellescape('%:r').'.out'<CR>
-autocmd filetype cpp nnoremap <F4> :w <bar> exec '!g++ '.shellescape('%').' -o '.shellescape('%:r').'.out && ./'.shellescape('%:r').'.out'<CR>
+autocmd filetype cpp nnoremap <F4> :w <bar> exec '!g++ '.shellescape('%').' -o '.shellescape('%:r').'.out -pthread -std=c++11 && ./'.shellescape('%:r').'.out'<CR>
 autocmd filetype java nnoremap <F4> :w <bar> exec '!javac '.shellescape('%').' && java '.shellescape('%:r')<CR>
 autocmd filetype cs nnoremap <F4> :w <bar> exec '!mcs '.shellescape('%').' && mono '.shellescape('%:r').'.exe'<CR>
 
@@ -71,3 +71,7 @@ set pastetoggle=<F11>
 set modeline
 " Must not exceed 100 characters in UW CSE homework.
 autocmd BufRead,BufNewFile *UW*/homework/* set cc=100 
+
+" Setting soft tabs for HTML editing
+autocmd filetype html set expandtab tabstop=4 shiftwidth=4
+inoremap <F12> {<CR>}<ESC>O
