@@ -8,13 +8,14 @@ using System.Collections.Generic;
 
 class Server
 {
+	private static readonly int PORT = 8080;
 	private string PROMPT = "";
-	private int PORT = 8080;
 	private TcpListener tcp_listener;
 	private Thread listener_thread;
 	private HashSet<Socket> connected_users;
 	private Dictionary<Socket, string> user_names;
 	private ASCIIEncoding encoder;
+	private String my_newline = "\r\n";
 	//private string PROMPT = "(Message) > ";
 	private string greeting = "Welcome to the server.";
 
@@ -37,9 +38,9 @@ class Server
 	private string UpdateGreeting()
 	{
 		StringBuilder my_greeting = new StringBuilder();
-		my_greeting.AppendLine("Welcome to this C# TCP chat server.");
-		my_greeting.AppendLine("Commands are prefaced with a /");
-		my_greeting.AppendLine("Register your name with /name <your name>");
+		my_greeting.AppendLine("Welcome to this C# TCP chat server.\r");
+		my_greeting.AppendLine("Commands are prefaced with a /\r");
+		my_greeting.AppendLine("Register your name with /name <your name>\r");
 		return my_greeting.ToString();
 	}
 
@@ -71,7 +72,7 @@ class Server
 		Console.WriteLine("[server] New client: " + tcp_client.Client.RemoteEndPoint.ToString());
 		connected_users.Add(tcp_client.Client);
 
-		byte[] send_buffer = encoder.GetBytes(greeting + Environment.NewLine + PROMPT);
+		byte[] send_buffer = encoder.GetBytes(greeting + my_newline + PROMPT);
 		client_stream.Write(send_buffer, 0, send_buffer.Length);
 		client_stream.Flush();
 		
@@ -144,8 +145,8 @@ class Server
 					{
 						name = "Unregistered User";
 					}
-					Console.Write(Environment.NewLine + name + ": " + user_input + Environment.NewLine);
-					send_buffer = encoder.GetBytes(Environment.NewLine + name + ": " + user_input + Environment.NewLine);
+					Console.Write(my_newline + name + ": " + user_input + my_newline);
+					send_buffer = encoder.GetBytes(my_newline + name + ": " + user_input + my_newline);
 					foreach (Socket user in connected_users)
 					{
 						NetworkStream stream = new NetworkStream(user);
@@ -164,7 +165,7 @@ class Server
 
 	private void ReplyNewLine(NetworkStream client_stream)
 	{
-		byte[] send_buffer = encoder.GetBytes(Environment.NewLine + PROMPT);
+		byte[] send_buffer = encoder.GetBytes(my_newline + PROMPT);
 		client_stream.Write(send_buffer, 0, send_buffer.Length);
 		client_stream.Flush();
 	}

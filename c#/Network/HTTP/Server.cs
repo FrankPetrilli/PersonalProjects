@@ -105,7 +105,7 @@ class Server
 					}
 					catch
 					{
-						result = "Failed to get file.\r\n";
+						result = "HTTP/1.1 404 File not found\r\nFailed to get file.\r\n";
 					}
 					//result += "\r\n" + prompt;
 					send_buffer = encoder.GetBytes(result);
